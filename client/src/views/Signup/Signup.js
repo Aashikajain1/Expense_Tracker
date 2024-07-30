@@ -38,9 +38,8 @@ function Signup() {
 
   return (
     <div>
+      <form className='d-flex flex-column position-absolute top-50 start-50 translate-middle bg-info'style={{width:"50%"}} >
       <h1 className='text-center'>User Registration</h1>
-
-      <form className='d-flex flex-column position-absolute top-50 start-50 translate-middle bg-dark' >
         <input
           type="text"
           placeholder="Fullname"
@@ -80,7 +79,7 @@ function Signup() {
           >
           Register
         </button>
-        <Link to='/login' className='text-center'>Already have an account? Login</Link>
+        <Link to='/login' className='text-center text-dark'>Already have an account? Login</Link>
 
       </form>
 
