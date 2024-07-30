@@ -7,6 +7,10 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+import { postSignup, postLogin } from './controllers/user.js';
+
+import { postTransaction, getTransactions, deleteTransaction } from "./controllers/transaction.js";
+
 
 const connectDB = async () =>{
     const conn = await mongoose.connect(process.env.MONGO_URL)
@@ -22,6 +26,12 @@ const connectDB = async () =>{
       message: `Welcome to Expense Tracker`
     })
   })
+
+  app.post("/signup", postSignup)
+  app.post("/login", postLogin)
+  app.post("/transaction", postTransaction)
+  app.get("/transactions", getTransactions)
+  app.delete("/transaction/:id", deleteTransaction)  
 
 const PORT = process.env.PORT || 5000;
 
