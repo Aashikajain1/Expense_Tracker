@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import toast, {Toaster} from 'react-hot-toast'
 import axios from 'axios'
+import TransactionCard from '../../components/TransactionCard/TransactionCard'
 import ImgAdd from "./add.png"
 import { Link } from 'react-router-dom'
 
@@ -59,10 +60,10 @@ function Home() {
 
   return (
     <div>
-      <h1 className='text-center'>Hello {user.fullName}</h1>
-      <h2 className='text-center'>Welcome to the Expense Tracker</h2>
+      <h1 className='text-center text-primary'>Hello {user.fullName}</h1>
+      <h2 className='text-center text-primary'>Welcome to the Expense Tracker</h2>
 
-      <span style={{height:"40px",position:"fixed",right:"10px",top:"10px",cursor:"pointer"}} onClick={() => {
+      <span className="rounded-pill p-2 text-center"style={{height:"40px",position:"fixed",right:"10px",top:"10px",cursor:"pointer",boxShadow:"0 0 5px blue"}} onClick={() => {
         localStorage.clear()
         toast.success('Logged out successfully')
 
@@ -73,9 +74,9 @@ function Home() {
         Logout
       </span>
 
-      <div className='d-fex justify-content-around mx-5 my-5'>
+      <div className='d-flex flex-row justify-content-around'>
 
-        <div className='border border-primary-1 p-3 rounded'>
+        <div className='border border-primary-1 p-3 rounded w-25'style={{boxShadow:"0 0 5px blue"}}>
           <span className='d-block text-center fs-4 fw-bold'>
             + {netIncome}
           </span>
@@ -84,7 +85,7 @@ function Home() {
           </span>
         </div>
 
-        <div className='border border-primary-1 p-3 rounded'>
+        <div className='border border-primary-1 p-3 rounded w-25'style={{boxShadow:"0 0 5px blue"}}>
           <span className='d-block text-center fs-4 fw-bold'>
             - {netExpense}
           </span>
@@ -93,7 +94,7 @@ function Home() {
           </span>
         </div>
 
-        <div className='border border-primary-1 p-3 rounded'>
+        <div className='border border-primary-1 p-3 rounded w-25'style={{boxShadow:"0 0 5px blue"}}>
           <span className='d-block text-center fs-4 fw-bold'>
             {netIncome - netExpense}
           </span>
@@ -103,11 +104,27 @@ function Home() {
         </div>
 
       </div>
+      <div className='transactions-container'>
+        {
+          transactions.map((transaction) => {
+            const {_id, title, amount, category, type, createdAt} = transaction
 
-     
+            return (<TransactionCard
+              key={_id}
+              _id={_id}
+              title={title}
+              amount={amount}
+              category={category}
+              type={type}
+              createdAt={createdAt}
+              loadTransactions={loadTransactions}
+            />)
+          })
+        }
+      </div>
 
       <Link to='/add-transaction'>
-        <img src={ImgAdd} alt='Add Transaction' className='bg-light p-2 rounded border border-primary-2'style={{height:"40px",position:"fixed",right:"10px",bottom:"10px",cursor:"pointer"}} />
+        <img src={ImgAdd} alt='Add Transaction' className='bg-light p-2 rounded border border-primary-2'style={{height:"40px",position:"fixed",right:"10px",bottom:"10px",cursor:"pointer",boxShadow:"0 0 5px blue"}} />
       </Link>
 
       <Toaster />
